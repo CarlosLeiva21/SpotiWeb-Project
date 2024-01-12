@@ -11,18 +11,12 @@ import { Artist } from '../interfaces/artist.interface';
 export class SpotifyService {
 
   private apiUrl = 'https://api.spotify.com/v1';
-  private accessToken = 'BQB_WwK8XmLyiRpCT6xkp-4N2Vi7E9q85b9I_aIpNqO4t5uFIU02qPhorWGRagUoxDOceKUnIz5B3yOfVWF6uWcn29UQ5QbMd_h7IlsIsdVlmuAR7Kw';
+  private accessToken = 'BQA3WRWFKbc0IcxXYcF3n55lJUrlSeRy9eNEdPnOTQPGKXf19X3l0ajpXg-cjmA8M8ucBlPcuT0nPR0eE-Ffm9K3ULjJ3fvZtD_HNuafmCaZZUNx2AU';
 
   constructor(private http: HttpClient) { }
 
-  searchArtist(artist: string): Observable<Artist>{
-    const url = `${this.apiUrl}/search?q=${artist}&type=artist`;
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${this.accessToken}`);
-    return this.http.get<Artist>(url, {headers});
-  }
-
-  searchAlbum(album: string): Observable<Album>{
-    const url = `${this.apiUrl}/search?q=${album}&type=album`;
+  searchAlbum(artist: string): Observable<Album>{
+    const url = `${this.apiUrl}/search?q=${artist}&type=album`;
     const headers = new HttpHeaders().set('Authorization', `Bearer ${this.accessToken}`);
     return this.http.get<Album>(url, {headers});
   }

@@ -1,0 +1,16 @@
+<shared-search-box placeholder="Buscar artista..." (onValue)="searchByAlbum($event)"></shared-search-box>
+@if (album !== undefined) {
+<div class="row">
+  @for (album of album.albums.items; track $index) {
+    <div class="col-4">
+      <spotify-album-card
+        [imageUrl]="album.images[0].url"
+        [title]="album.name"
+        [album]="album.id"
+        >
+      </spotify-album-card>
+    </div>
+
+  }
+</div>
+}

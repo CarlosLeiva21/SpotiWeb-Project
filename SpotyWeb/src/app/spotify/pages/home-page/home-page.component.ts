@@ -14,8 +14,6 @@ import { CardComponent } from '../../components/card/card.component';
 })
 export class HomePageComponent {
 
-  public artists!: Artist;
-  public album!: Album;
   public trackList!: Track;
 
 
@@ -26,23 +24,6 @@ export class HomePageComponent {
       .subscribe(tracks => {
         this.trackList = tracks
       });
-  }
-
-
-  searchByArtist(term:string):void{
-    this.spotifyService.searchArtist(term)
-      .subscribe(artists =>{
-        this.artists = artists;
-        console.log('objeto artista: ', this.artists.artists.items[0]);
-      })
-  }
-
-  searchByAlbum(term:string):void{
-    this.spotifyService.searchAlbum(term)
-      .subscribe(album =>{
-        this.album = album;
-        console.log('objeto album: ', this.album);
-      })
   }
 
 }
