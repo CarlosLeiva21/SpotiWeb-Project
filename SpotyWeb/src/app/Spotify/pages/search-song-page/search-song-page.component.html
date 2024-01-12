@@ -1,0 +1,15 @@
+<shared-search-box placeholder="Buscar cancion..." (onValue)="searchSong($event)"></shared-search-box>
+@if (trackList !== undefined) {
+<div class="row">
+  @for (track of trackList.tracks.items; track $index) {
+    <div class="col-4">
+      <spotify-card
+        [imageUrl]="track.album.images[0].url"
+        [title]="track.name"
+        [artists]="track.artists">
+      </spotify-card>
+    </div>
+
+  }
+</div>
+}

@@ -3,24 +3,34 @@ import { SearchBoxComponent } from '../../../shared/components/search-box/search
 import { SpotifyService } from '../../services/spotify.service';
 import { Artist } from '../../interfaces/artist.interface';
 import { Album } from '../../interfaces/album.interface';
+import { Track } from '../../interfaces/track.interface';
+import { CardComponent } from '../../components/card/card.component';
 
 @Component({
   selector: 'home-page',
   standalone: true,
-  imports: [SearchBoxComponent],
+  imports: [SearchBoxComponent, CardComponent],
   templateUrl: './home-page.component.html',
 })
 export class HomePageComponent {
 
-  public artists!: Artist; 
+  public artists!: Artist;
   public album!: Album;
+  public trackList!: Track;
 
 
-  constructor(private spotifyServices: SpotifyService){}
+  constructor(private spotifyService: SpotifyService){}
+
+  ngOnInit():void{
+    this.spotifyService.searchSong('a')
+      .subscribe(tracks => {
+        this.trackList = tracks
+      });
+  }
 
 
   searchByArtist(term:string):void{
-    this.spotifyServices.searchArtist(term)
+    this.spotifyService.searchArtist(term)
       .subscribe(artists =>{
         this.artists = artists;
         console.log('objeto artista: ', this.artists.artists.items[0]);
@@ -28,9 +38,9 @@ export class HomePageComponent {
   }
 
   searchByAlbum(term:string):void{
-    this.spotifyServices.searchAlbum(term)
+    this.spotifyService.searchAlbum(term)
       .subscribe(album =>{
-        this.artists = album;
+        this.album = album;
         console.log('objeto album: ', this.album);
       })
   }

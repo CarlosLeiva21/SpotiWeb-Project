@@ -1,0 +1,9 @@
+<div class="card m-4 bg-success">
+  <img [src]="imageUrl" class="card-img-top" alt="...">
+  <div class="card-body">
+    <h5 class="card-title">{{title}}</h5>
+    @for (artist of artists; track $index) {
+      <button (click)="searchArtist(artist.id)" class=" badge rounded-pill btn btn-primary ms-2">{{artist.name}}</button>
+    }
+  </div>
+</div>

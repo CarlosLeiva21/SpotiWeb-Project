@@ -3,14 +3,15 @@ import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { NavbarComponent } from './shared/components/navbar/navbar.component';
 import { SearchBoxComponent } from './shared/components/search-box/search-box.component';
-import { HomePageComponent } from './spotify/pages/home-page/home-page.component';
+import { SearchSongPageComponent } from "./Spotify/pages/search-song-page/search-song-page.component";
+import { HomePageComponent } from "./Spotify/pages/home-page/home-page.component";
 
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  imports: [CommonModule, RouterOutlet, NavbarComponent, SearchBoxComponent, HomePageComponent],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+    selector: 'app-root',
+    standalone: true,
+    templateUrl: './app.component.html',
+    styleUrl: './app.component.css',
+    imports: [CommonModule, RouterOutlet, NavbarComponent, SearchBoxComponent, SearchSongPageComponent, HomePageComponent]
 })
 export class AppComponent {
   title = 'SpotyWeb';
