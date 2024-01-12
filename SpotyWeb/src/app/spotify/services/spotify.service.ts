@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Track } from '../interfaces/track.interface';
+import { Item, Track, Tracks } from '../interfaces/track.interface';
 import { Album } from '../interfaces/album.interface';
 import { Artist } from '../interfaces/artist.interface';
 
@@ -11,7 +11,7 @@ import { Artist } from '../interfaces/artist.interface';
 export class SpotifyService {
 
   private apiUrl = 'https://api.spotify.com/v1';
-  private accessToken = 'BQA3WRWFKbc0IcxXYcF3n55lJUrlSeRy9eNEdPnOTQPGKXf19X3l0ajpXg-cjmA8M8ucBlPcuT0nPR0eE-Ffm9K3ULjJ3fvZtD_HNuafmCaZZUNx2AU';
+  private accessToken = 'BQBNYojWbkfhHOK1Wb0qBjhSUT9RWuEtWC9RKwBXLqcfBhE3E2MBnsPZAHgbplRH8McB2XyGBpKsEc3LhDMKjcieDMry_5Zh6IRfrqE5rGfV8nt1sDo';
 
   constructor(private http: HttpClient) { }
 
@@ -25,5 +25,23 @@ export class SpotifyService {
     const url = `${this.apiUrl}/search?q=${song}&type=track`;
     const headers = new HttpHeaders().set('Authorization', `Bearer ${this.accessToken}`);
     return this.http.get<Track>(url, {headers});
+  }
+
+  getNewReleases(): Observable<Album>{
+    const url = `${this.apiUrl}/browse/new-releases`;
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${this.accessToken}`);
+    return this.http.get<Album>(url, {headers});
+  }
+
+  getAlbumTrack(id: string): Observable<Tracks>{
+    const url = `${this.apiUrl}/albums/${id}/tracks?limit=1`;
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${this.accessToken}`);
+    return this.http.get<Tracks>(url, {headers});
+  }
+
+  getSongById(id: string):Observable<Item>{
+    const url = `${this.apiUrl}/tracks/${id}`;
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${this.accessToken}`);
+    return this.http.get<Item>(url, {headers});
   }
 }

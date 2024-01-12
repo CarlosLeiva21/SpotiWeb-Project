@@ -1,8 +1,8 @@
-<h3 class="text-black">Search</h3>
-<input
-  type="text"
+<div class="m-3">
+  <h3 class="text-black">Search</h3>
+  <input type="text"
   class="form-control "
-  [placeholder]= "placeholder"
+  [placeholder]="placeholder"
   (keyup.enter)="emitValue(txtInput.value)"
-  #txtInput
-/>
+  #txtInput />
+</div>

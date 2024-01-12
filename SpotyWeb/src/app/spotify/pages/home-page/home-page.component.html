@@ -1,12 +1,13 @@
 
 @if (trackList !== undefined) {
   <div class="row">
-    @for (track of trackList.tracks.items; track $index) {
+    @for (track of trackList; track $index) {
       <div class="col-4">
         <spotify-card
           [imageUrl]="track.album.images[0].url"
           [title]="track.name"
-          [artists]="track.artists">
+          [artists]="track.artists"
+          [songId]="track.id">
         </spotify-card>
       </div>
 

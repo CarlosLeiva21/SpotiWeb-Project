@@ -1,5 +1,6 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, SimpleChanges } from '@angular/core';
 import { Artist } from '../../interfaces/track.interface';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'spotify-card',
@@ -15,6 +16,16 @@ export class CardComponent {
   public title: string = '';
   @Input()
   public artists: Artist[] = [];
+  @Input()
+  public songId: string = '';
+
+  public previewUrl: string = '';
+
+  constructor(public sanitizer: DomSanitizer) { }
+
+  ngOnChanges(): void {
+    this.previewUrl = `https://open.spotify.com/embed/track/${this.songId}?utm_source=generator`;
+  }
 
   searchArtist(id: string){
     console.log(id)
