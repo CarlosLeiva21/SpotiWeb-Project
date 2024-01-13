@@ -11,7 +11,7 @@ import { Artist } from '../interfaces/artist.interface';
 export class SpotifyService {
 
   private apiUrl = 'https://api.spotify.com/v1';
-  private accessToken = 'BQCHaIQ8L_DOWf73uLbL7sY3N1mVu9gckNrNdRXGOUUJqZ39PmcIApMB3q47ALXEQEI3Fw6rF0GGnizo-ICwcmZAsZusS9q4aQrLh3yUGW9r2EPVYYU';
+  private accessToken = 'BQDtHgMUIjWN6a6SRylDpjglqo1CdC55VbxSv3jJJ3UXrEjs5jbPn3oCN84uWSNpqNZlMAW_fFapkDdeFlqcUWraoUaSiFfG9zl7h4i11NahP-yvBjY';
 
   constructor(private http: HttpClient) { }
 
