@@ -1,0 +1,25 @@
+<div class="row m-3">
+    <div class="col">
+        <table class="table display nowrap scroll-horizontal table-hover table-dark">
+            <thead class="thead-light">
+                <tr>
+                    <th class="">Foto</th>
+                    <th class="">Album</th>
+                    <th class="">Canción</th>
+                    <th class="">Vista Previa</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for(track of tracks; track $index){
+                    <tr>
+                        <td><img [src]="album_img" alt="" height="10%" width="10%"></td> 
+                        <td>{{album_name}}</td> 
+                        <td>{{track.name}}</td>  
+                        <td>{{track.name}}</td>
+                    </tr>
+                }                         
+            </tbody>
+        </table>
+    </div>
+
+</div>

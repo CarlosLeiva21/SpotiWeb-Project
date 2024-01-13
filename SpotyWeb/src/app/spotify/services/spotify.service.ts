@@ -11,7 +11,7 @@ import { Artist } from '../interfaces/artist.interface';
 export class SpotifyService {
 
   private apiUrl = 'https://api.spotify.com/v1';
-  private accessToken = 'BQBNYojWbkfhHOK1Wb0qBjhSUT9RWuEtWC9RKwBXLqcfBhE3E2MBnsPZAHgbplRH8McB2XyGBpKsEc3LhDMKjcieDMry_5Zh6IRfrqE5rGfV8nt1sDo';
+  private accessToken = 'BQCHaIQ8L_DOWf73uLbL7sY3N1mVu9gckNrNdRXGOUUJqZ39PmcIApMB3q47ALXEQEI3Fw6rF0GGnizo-ICwcmZAsZusS9q4aQrLh3yUGW9r2EPVYYU';
 
   constructor(private http: HttpClient) { }
 
@@ -34,7 +34,7 @@ export class SpotifyService {
   }
 
   getAlbumTrack(id: string): Observable<Tracks>{
-    const url = `${this.apiUrl}/albums/${id}/tracks?limit=1`;
+    const url = `${this.apiUrl}/albums/${id}/tracks`;
     const headers = new HttpHeaders().set('Authorization', `Bearer ${this.accessToken}`);
     return this.http.get<Tracks>(url, {headers});
   }
