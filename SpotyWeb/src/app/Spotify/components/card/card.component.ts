@@ -1,11 +1,12 @@
 import { Component, Input, SimpleChanges } from '@angular/core';
 import { Artist } from '../../interfaces/track.interface';
 import { DomSanitizer } from '@angular/platform-browser';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'spotify-card',
   standalone: true,
-  imports: [],
+  imports: [RouterModule],
   templateUrl: './card.component.html',
 })
 export class CardComponent {

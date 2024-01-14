@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { Item, Track, Tracks } from '../interfaces/track.interface';
 import { Album } from '../interfaces/album.interface';
 import { Artist } from '../interfaces/artist.interface';
+import { TopTracks } from '../interfaces/top-track.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,7 @@ import { Artist } from '../interfaces/artist.interface';
 export class SpotifyService {
 
   private apiUrl = 'https://api.spotify.com/v1';
-  private accessToken = 'BQDtHgMUIjWN6a6SRylDpjglqo1CdC55VbxSv3jJJ3UXrEjs5jbPn3oCN84uWSNpqNZlMAW_fFapkDdeFlqcUWraoUaSiFfG9zl7h4i11NahP-yvBjY';
+  private accessToken = 'BQBGMtB7BRAL-9Pkj7Y6uBU0aFm2KX-g35qNmQHV0Sb4r9qN-hXYbwQbDZTknQB5T2rcjQXV4q1PQh_nvu2o-dNWc9Zk2AaB32aqjfc4zkFjeCXnocg';
 
   constructor(private http: HttpClient) { }
 
@@ -43,5 +44,11 @@ export class SpotifyService {
     const url = `${this.apiUrl}/tracks/${id}`;
     const headers = new HttpHeaders().set('Authorization', `Bearer ${this.accessToken}`);
     return this.http.get<Item>(url, {headers});
+  }
+
+  getTopTracks(id: string):Observable<TopTracks>{
+    const url = `${this.apiUrl}/artists/${id}/top-tracks?market=US`;
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${this.accessToken}`);
+    return this.http.get<TopTracks>(url, {headers});
   }
 }

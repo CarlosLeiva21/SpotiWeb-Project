@@ -1,8 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Item, Tracks } from '../../interfaces/track.interface';
 import { switchMap } from 'rxjs';
 import { SpotifyService } from '../../services/spotify.service';
+import { Track } from '../../interfaces/top-track.interface';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'songs-table',
@@ -11,29 +13,29 @@ import { SpotifyService } from '../../services/spotify.service';
   templateUrl: './songs-table.component.html',
 })
 export class SongsTableComponent {
-
+  
+  @Input()
   public tracks: Item[] = [];
 
-  album_name: string | null = null;
-  album_img: string | null = null;
+  @Input()
+  public top_tracks: Track[] = []
 
-  constructor(
-    private spotifyService: SpotifyService,
-    private activatedRoute: ActivatedRoute) {}
+  @Input()
+  public img_url: string  | null = "";
 
-  ngOnInit(): void {
-    this.album_name = this.activatedRoute.snapshot.paramMap.get('album_name') || null;
-    this.album_img = this.activatedRoute.snapshot.paramMap.get('album_img') || null;
+  @Input()
+  public album_name: string | null = "";
 
-    this.activatedRoute.params
-      .pipe(
-        switchMap(({id}) => this.spotifyService.getAlbumTrack(id))
-      )
-      .subscribe(track =>{
-        for(const item of track.items){
-          console.log('aqui: ', item);
-          this.tracks.push(item);
-        }
-      })
+  @Input()
+  public songId: string[] = [];
+
+  //public previewUrl: string = '';
+
+  constructor(public sanitizer: DomSanitizer) { }
+
+  ngOnChanges(): void {
+    console.log('ACAAAAAAAAAAAAAAAAAAA: ', this.tracks);
+    
+    //this.previewUrl = `https://open.spotify.com/embed/track/${this.songId}?utm_source=generator`;
   }
 }
