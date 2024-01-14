@@ -34,10 +34,8 @@ export class AlbumTracksPageComponent {
       )
       .subscribe(track =>{
         for(const item of track.items){
-          console.log('ALBUM TRACKS: ', item);
           this.tracks.push(item);
           this.tracks_url.push(`https://open.spotify.com/embed/track/${item.id}?utm_source=generator`);
-          console.log('esta wea: ', this.tracks_url);
         }
       })
   }

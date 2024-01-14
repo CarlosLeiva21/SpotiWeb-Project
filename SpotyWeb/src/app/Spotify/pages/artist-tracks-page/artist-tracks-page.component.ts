@@ -15,20 +15,22 @@ import { Track } from '../../interfaces/top-track.interface';
 export class ArtistTracksPageComponent {
   public tracks: Track[] = [];
 
+  public tracks_url: string[] = [];
+
   constructor(
     private spotifyService: SpotifyService,
     private activatedRoute: ActivatedRoute) {}
 
   ngOnInit(): void {
-  
+
     this.activatedRoute.params
       .pipe(
         switchMap(({id}) => this.spotifyService.getTopTracks(id))
       )
       .subscribe(track =>{
         for(const item of track.tracks){
-          console.log('TOP TRACKS: ', item);
           this.tracks.push(item);
+          this.tracks_url.push(`https://open.spotify.com/embed/track/${item.id}?utm_source=generator`);
         }
       })
   }
