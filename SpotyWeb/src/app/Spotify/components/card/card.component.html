@@ -3,7 +3,7 @@
   <div class="card-body">
     <h5 class="card-title">{{title}}</h5>
     @for (artist of artists; track $index) {
-      <button (click)="searchArtist(artist.id)" class=" badge rounded-pill btn btn-primary ms-2"
+      <button class=" badge rounded-pill btn btn-primary ms-2"
       [routerLink]="['/search-song/artist', artist.id]">{{artist.name}}</button>
     }
     <iframe style="border-radius:12px; margin-top: 10px;" [src]="sanitizer.bypassSecurityTrustResourceUrl(previewUrl)"

@@ -28,8 +28,5 @@ export class CardComponent {
     this.previewUrl = `https://open.spotify.com/embed/track/${this.songId}?utm_source=generator`;
   }
 
-  searchArtist(id: string){
-    console.log(id)
-  }
 
 }

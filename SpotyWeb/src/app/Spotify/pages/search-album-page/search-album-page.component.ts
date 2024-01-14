@@ -23,7 +23,6 @@ export class SearchAlbumPageComponent {
     this.spotifyService.searchAlbum(term)
       .subscribe(album =>{
         this.album = album;
-        console.log('objeto album: ', this.album.albums.items[0]);
       })
   }
 
