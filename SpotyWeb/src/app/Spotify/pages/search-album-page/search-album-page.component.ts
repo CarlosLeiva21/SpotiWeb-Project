@@ -18,12 +18,20 @@ export class SearchAlbumPageComponent {
 
   constructor(private spotifyService: SpotifyService){}
 
+  ngDoCheck():void{
+    if (localStorage.getItem('album')) {
+      this.searchByAlbum(JSON.parse(localStorage.getItem('album')!))
+      localStorage.removeItem('album')
+    }
+  }
 
   searchByAlbum(term:string):void{
     this.spotifyService.searchAlbum(term)
       .subscribe(album =>{
         this.album = album;
       })
+
+    this.spotifyService.updateHistory('album', term)
   }
 
 }

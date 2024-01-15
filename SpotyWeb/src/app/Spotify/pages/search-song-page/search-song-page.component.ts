@@ -3,7 +3,6 @@ import { SearchBoxComponent } from "../../../shared/components/search-box/search
 import { SpotifyService } from '../../services/spotify.service';
 import { Track } from '../../interfaces/track.interface';
 import { CardComponent } from "../../components/card/card.component";
-
 @Component({
     selector: 'search-song-page',
     standalone: true,
@@ -14,7 +13,15 @@ export class SearchSongPageComponent {
 
   public trackList!: Track;
 
-  constructor(private spotifyService: SpotifyService){}
+  constructor(private spotifyService: SpotifyService,){
+  }
+
+  ngDoCheck():void{
+    if (localStorage.getItem('song')) {
+      this.searchSong(JSON.parse(localStorage.getItem('song')!))
+      localStorage.removeItem('song')
+    }
+  }
 
   searchSong(name: string){
 
@@ -22,6 +29,8 @@ export class SearchSongPageComponent {
       .subscribe(tracks => {
         this.trackList = tracks
       })
+
+    this.spotifyService.updateHistory('song', name)
   }
 
 }
