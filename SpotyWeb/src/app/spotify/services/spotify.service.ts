@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Item, Track, Tracks } from '../interfaces/track.interface';
 import { Album } from '../interfaces/album.interface';
-import { Artist } from '../interfaces/artist.interface';
 import { TopTracks } from '../interfaces/top-track.interface';
 
 @Injectable({
@@ -12,7 +11,7 @@ import { TopTracks } from '../interfaces/top-track.interface';
 export class SpotifyService {
 
   private apiUrl = 'https://api.spotify.com/v1';
-  private accessToken = 'BQBUpQHgMDgtgn2m8Pp3K6vrXNs5uqS_7XeAWcrKVWJ1lr5TfF0Cvz51ANb_FJh3ht0E-JSWLKCSOE5g_IOEYUAar-yOpocmL9HHb3k2sUY2l5gLzTo';
+  private accessToken = 'BQDZ2cS36FUiqNJbEeC9SxVtSsYOt5NLrm9FhSY4Twe9GdhZcrSS5tBeeYmiiToHPhhnXvZy-ewLm2GJIz6o6k0uwG5Gs7jCTLoCwQxKo4HaKUjkVvM';
   public history: { name: string, tag: string }[] = [];
 
   constructor(private http: HttpClient) {
