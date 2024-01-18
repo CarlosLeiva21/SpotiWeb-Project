@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { SearchBoxComponent } from '../../../shared/components/search-box/search-box.component';
 import { SongsTableComponent } from '../../components/songs-table/songs-table.component';
-import { Item } from '../../interfaces/track.interface';
 import { SpotifyService } from '../../services/spotify.service';
 import { ActivatedRoute } from '@angular/router';
 import { switchMap } from 'rxjs';
+import { AlbumTracks } from '../../interfaces/albumTracks.interface';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-album-tracks-page',
@@ -13,21 +14,43 @@ import { switchMap } from 'rxjs';
   templateUrl: './album-tracks-page.component.html'
 })
 export class AlbumTracksPageComponent {
-  public tracks: Item[] = [];
-
+  
+  public album_tracks!: AlbumTracks;
+  public artist_id: string = '';
+  public artist_img : string = '';
+  public artist_name: string = '';
+  public artist_spotify : string = '';
   public tracks_url: string[] = [];
-
-  public album_name: string | null = null;
-  public album_img: string | null = null;
 
   constructor(
     private spotifyService: SpotifyService,
-    private activatedRoute: ActivatedRoute) {}
+    private activatedRoute: ActivatedRoute,
+    private location: Location) {}
 
   ngOnInit(): void {
-    this.album_name = this.activatedRoute.snapshot.paramMap.get('album_name') || null;
-    this.album_img = this.activatedRoute.snapshot.paramMap.get('album_img') || null;
 
+    this.activatedRoute.params
+      .pipe(
+        switchMap(({id}) => this.spotifyService.getAlbumById(id))
+      )
+      .subscribe(album => {
+        this.artist_id = album.artists[0].id;
+        console.log('ID ARTISTA: ', this.artist_id);
+        this.spotifyService.getArtistById(this.artist_id)
+          .subscribe(artist =>{
+            this.artist_img = artist.images[1].url;
+            this.artist_name = artist.name;
+            this.artist_spotify = artist.external_urls.spotify;
+            console.log('ARTISTA: ',this.artist_img, ' , ', this.artist_spotify);
+          });
+        this.album_tracks = album;
+        console.log('Revisar 1: ', this.album_tracks);
+        for(const item of album.tracks.items){
+          this.tracks_url.push(`https://open.spotify.com/embed/track/${item.id}?utm_source=generator`);
+        }
+      });
+    
+   /*
     this.activatedRoute.params
       .pipe(
         switchMap(({id}) => this.spotifyService.getAlbumTrack(id))
@@ -37,6 +60,20 @@ export class AlbumTracksPageComponent {
           this.tracks.push(item);
           this.tracks_url.push(`https://open.spotify.com/embed/track/${item.id}?utm_source=generator`);
         }
-      })
+      })*/
+  }
+
+
+  getArtist(id:string):void{
+    this.spotifyService.getArtistById(id)
+      .subscribe(artist =>{
+        this.artist_img = artist.images[0].url;
+        this.artist_spotify = artist.external_urls.spotify;
+        console.log('ERROR ???: ',this.artist_img, ' , ', this.artist_spotify);
+      });
+  }
+
+  volver():void{
+    this.location.back();
   }
 }

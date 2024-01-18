@@ -3,8 +3,9 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Item, Track, Tracks } from '../interfaces/track.interface';
 import { Album } from '../interfaces/album.interface';
-import { Artist } from '../interfaces/artist.interface';
+import { Artist, Artists, Item_Artist} from '../interfaces/artist.interface';
 import { TopTracks } from '../interfaces/top-track.interface';
+import { AlbumTracks } from '../interfaces/albumTracks.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ import { TopTracks } from '../interfaces/top-track.interface';
 export class SpotifyService {
 
   private apiUrl = 'https://api.spotify.com/v1';
-  private accessToken = 'BQBNIMAHSbE90jl_yRH13CbBOpKydquZfkC1aL6RUDwESkGkULGPtBkS_w71ycgVaIMVckFtDZF4DXtyMqjpbUeFSlg5NsXGn3PGleQYtkEzFY1YaBQ';
+  private accessToken = 'BQD9iAx1QAcw0B5xsbQFU95J3SBYHPaQORWVXwhPBluEopmEQBKoCSWGKgNuDd64CsyReL7BmczdR6v7ZSaHvfgwtOdvdQcDxOHUs6xlYDLJqeXUk-c';
 
   constructor(private http: HttpClient) { }
 
@@ -38,6 +39,19 @@ export class SpotifyService {
     const url = `${this.apiUrl}/albums/${id}/tracks`;
     const headers = new HttpHeaders().set('Authorization', `Bearer ${this.accessToken}`);
     return this.http.get<Tracks>(url, {headers});
+  }
+
+  getAlbumById(id: string): Observable<AlbumTracks>{
+    const url = `${this.apiUrl}/albums/${id}`;
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${this.accessToken}`);
+    return this.http.get<AlbumTracks>(url, {headers});
+  }
+
+  // este lo usamos para traer la img y url del artista
+  getArtistById(id: string): Observable<Item_Artist>{
+    const url = `${this.apiUrl}/artists/${id}`;
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${this.accessToken}`);
+    return this.http.get<Item_Artist>(url, {headers});
   }
 
   getSongById(id: string):Observable<Item>{

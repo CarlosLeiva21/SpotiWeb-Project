@@ -10,11 +10,11 @@
                 </tr>
             </thead>
             <tbody>
-                @if(img_url !== "" && album_name !==""){
-                    @for(track of tracks; track $index){
+                @if(this.album_tracks !== null && this.album_tracks !== undefined){
+                    @for(track of album_tracks.tracks.items; track $index){
                       <tr>
-                        <td><img [src]="img_url" alt="" height="50%" width="50%"></td>
-                        <td>{{album_name}}</td>
+                        <td><img [src]="album_tracks.images[0].url" alt="" height="50%" width="50%"></td>
+                        <td>{{album_tracks.name}}</td>
                         <td>{{track.name}}</td>
                         <td>
                           <iframe style="border-radius:12px; margin-top: 10px;" [src]="sanitizer.bypassSecurityTrustResourceUrl(songId[$index])"

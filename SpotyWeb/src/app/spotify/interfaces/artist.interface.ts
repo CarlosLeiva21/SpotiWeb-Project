@@ -4,7 +4,7 @@ export interface Artist {
 
 export interface Artists {
     href:     string;
-    items:    Item[];
+    items:    Item_Artist[];
     limit:    number;
     next:     string;
     offset:   number;
@@ -12,7 +12,7 @@ export interface Artists {
     total:    number;
 }
 
-export interface Item {
+export interface Item_Artist {
     external_urls: ExternalUrls;
     followers:     Followers;
     genres:        string[];

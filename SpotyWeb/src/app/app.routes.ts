@@ -34,7 +34,7 @@ export const routes: Routes = [
         component: SearchAlbumPageComponent
       },
       {
-        path: 'album/:id/:album_name/:album_img',
+        path: 'album/:id',
         component: AlbumTracksPageComponent
       },
       {

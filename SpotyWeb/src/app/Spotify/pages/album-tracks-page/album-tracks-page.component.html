@@ -1,9 +1,17 @@
 <div class="row m-3">
+    <button class=" col-1 btn btn-outline-danger btn-sm ms-auto" (click)="volver()">Regresar</button>
     <h1 class="text-light text-center">Album's tracks</h1>
+    <div class="row mb-5 ms-4">
+        <div class="col-2">
+            <img [src]="artist_img" class="rounded-circle" height="200" width="200">
+        </div>
+        <div class="col-8 mt-4">
+            <h2 class="text-light">{{artist_name}}</h2>
+            <a [href]="artist_spotify">Ir a la página del artista.</a>
+        </div>
+    </div>
     <songs-table
-    [tracks] = "tracks"
-    [img_url] = "album_img"
-    [album_name]="album_name"
+    [album_tracks]="album_tracks"
     [songId] = "tracks_url"
     ></songs-table>
 </div>
