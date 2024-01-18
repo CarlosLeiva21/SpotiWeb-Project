@@ -13,32 +13,39 @@ import { AlbumTracks } from '../interfaces/albumTracks.interface';
 export class SpotifyService {
 
   private apiUrl = 'https://api.spotify.com/v1';
-  private accessToken = 'BQD9iAx1QAcw0B5xsbQFU95J3SBYHPaQORWVXwhPBluEopmEQBKoCSWGKgNuDd64CsyReL7BmczdR6v7ZSaHvfgwtOdvdQcDxOHUs6xlYDLJqeXUk-c';
+  private accessToken = 'BQDZ2cS36FUiqNJbEeC9SxVtSsYOt5NLrm9FhSY4Twe9GdhZcrSS5tBeeYmiiToHPhhnXvZy-ewLm2GJIz6o6k0uwG5Gs7jCTLoCwQxKo4HaKUjkVvM';
+  public history: { name: string, tag: string }[] = [];
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+    this.loadLocalStorage();
+  }
 
-  searchAlbum(artist: string): Observable<Album>{
+  //Busca un album por artista
+  searchAlbum(artist: string): Observable<Album> {
     const url = `${this.apiUrl}/search?q=${artist}&type=album`;
     const headers = new HttpHeaders().set('Authorization', `Bearer ${this.accessToken}`);
-    return this.http.get<Album>(url, {headers});
+    return this.http.get<Album>(url, { headers });
   }
 
-  searchSong(song: string): Observable<Track>{
+  //Busca una cancion por nombre
+  searchSong(song: string): Observable<Track> {
     const url = `${this.apiUrl}/search?q=${song}&type=track`;
     const headers = new HttpHeaders().set('Authorization', `Bearer ${this.accessToken}`);
-    return this.http.get<Track>(url, {headers});
+    return this.http.get<Track>(url, { headers });
   }
 
-  getNewReleases(): Observable<Album>{
+  //Obtiene 20 album mas nuevos
+  getNewReleases(): Observable<Album> {
     const url = `${this.apiUrl}/browse/new-releases`;
     const headers = new HttpHeaders().set('Authorization', `Bearer ${this.accessToken}`);
-    return this.http.get<Album>(url, {headers});
+    return this.http.get<Album>(url, { headers });
   }
 
-  getAlbumTrack(id: string): Observable<Tracks>{
+  //Obtiene canciones de un album
+  getAlbumTrack(id: string): Observable<Tracks> {
     const url = `${this.apiUrl}/albums/${id}/tracks`;
     const headers = new HttpHeaders().set('Authorization', `Bearer ${this.accessToken}`);
-    return this.http.get<Tracks>(url, {headers});
+    return this.http.get<Tracks>(url, { headers });
   }
 
   getAlbumById(id: string): Observable<AlbumTracks>{
@@ -57,15 +64,17 @@ export class SpotifyService {
   getSongById(id: string):Observable<Item>{
     const url = `${this.apiUrl}/tracks/${id}`;
     const headers = new HttpHeaders().set('Authorization', `Bearer ${this.accessToken}`);
-    return this.http.get<Item>(url, {headers});
+    return this.http.get<Item>(url, { headers });
   }
 
-  getTopTracks(id: string):Observable<TopTracks>{
+  //Obtiene top tracks de un artista
+  getTopTracks(id: string): Observable<TopTracks> {
     const url = `${this.apiUrl}/artists/${id}/top-tracks?market=US`;
     const headers = new HttpHeaders().set('Authorization', `Bearer ${this.accessToken}`);
-    return this.http.get<TopTracks>(url, {headers});
+    return this.http.get<TopTracks>(url, { headers });
   }
 
+  //Obtiene token de acceso
   getToken() {
     const url = 'https://accounts.spotify.com/api/token';
 
@@ -84,4 +93,34 @@ export class SpotifyService {
     // Realizar la solicitud POST
     return this.http.post(url, body.toString(), { headers, observe: 'response' });
   }
+
+  //Actualiza el historial
+  updateHistory(name: string, tag: string) {
+
+    const estaPresente: boolean = this.history.some(item => item.name === name && item.tag === tag);
+
+    if (!estaPresente) {
+      this.history.push({
+        name: name,
+        tag: tag
+      })
+    }
+
+    if(this.history.length > 15){
+      this.history.shift()
+    }
+    localStorage.setItem('Busquedas', JSON.stringify(this.history))
+  }
+
+  //Retorna el historial
+  get _history() {
+    return this.history;
+  }
+
+  //Carga el historial desde el local storage
+  private loadLocalStorage(): void {
+    if (!localStorage.getItem('Busquedas')) return;
+
+    this.history = JSON.parse(localStorage.getItem('Busquedas')!);
+  };
 }

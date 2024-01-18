@@ -18,9 +18,4 @@ export class AlbumCardComponent {
   @Input()
   public album_id: string = '';
 
-
-  searchAlbum(id: string, album_name: string, album_img: string){
-    console.log(id,' ',album_name, ' ',album_img);
-  }
-
 }
