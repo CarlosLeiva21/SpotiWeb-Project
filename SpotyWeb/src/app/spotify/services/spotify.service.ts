@@ -13,7 +13,7 @@ import { AlbumTracks } from '../interfaces/albumTracks.interface';
 export class SpotifyService {
 
   private apiUrl = 'https://api.spotify.com/v1';
-  private accessToken = 'BQDZ2cS36FUiqNJbEeC9SxVtSsYOt5NLrm9FhSY4Twe9GdhZcrSS5tBeeYmiiToHPhhnXvZy-ewLm2GJIz6o6k0uwG5Gs7jCTLoCwQxKo4HaKUjkVvM';
+  private accessToken = 'BQD9iAx1QAcw0B5xsbQFU95J3SBYHPaQORWVXwhPBluEopmEQBKoCSWGKgNuDd64CsyReL7BmczdR6v7ZSaHvfgwtOdvdQcDxOHUs6xlYDLJqeXUk-c';
   public history: { name: string, tag: string }[] = [];
 
   constructor(private http: HttpClient) {
