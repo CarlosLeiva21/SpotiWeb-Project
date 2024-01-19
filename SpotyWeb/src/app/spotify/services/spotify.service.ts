@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Item, Track, Tracks } from '../interfaces/track.interface';
 import { Album } from '../interfaces/album.interface';
-import { Artist, Artists, Item_Artist} from '../interfaces/artist.interface';
+import { Item_Artist} from '../interfaces/artist.interface';
 import { TopTracks } from '../interfaces/top-track.interface';
 import { AlbumTracks } from '../interfaces/albumTracks.interface';
 
@@ -13,10 +13,15 @@ import { AlbumTracks } from '../interfaces/albumTracks.interface';
 export class SpotifyService {
 
   private apiUrl = 'https://api.spotify.com/v1';
-  private accessToken = 'BQD9iAx1QAcw0B5xsbQFU95J3SBYHPaQORWVXwhPBluEopmEQBKoCSWGKgNuDd64CsyReL7BmczdR6v7ZSaHvfgwtOdvdQcDxOHUs6xlYDLJqeXUk-c';
+  private accessToken = '';
   public history: { name: string, tag: string }[] = [];
 
   constructor(private http: HttpClient) {
+    this.getToken().subscribe(
+      response => {
+        this.accessToken = response.body.access_token
+      }
+    )
     this.loadLocalStorage();
   }
 
@@ -75,7 +80,7 @@ export class SpotifyService {
   }
 
   //Obtiene token de acceso
-  getToken() {
+  getToken(): Observable<any> {
     const url = 'https://accounts.spotify.com/api/token';
 
     // Configurar las cabeceras
