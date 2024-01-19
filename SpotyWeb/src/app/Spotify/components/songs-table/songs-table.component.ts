@@ -22,4 +22,5 @@ export class SongsTableComponent {
   public songId: string[] = [];
 
   constructor(public sanitizer: DomSanitizer) { }
+
 }

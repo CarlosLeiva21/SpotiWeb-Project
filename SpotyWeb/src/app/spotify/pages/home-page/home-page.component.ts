@@ -14,7 +14,8 @@ export class HomePageComponent {
 
   public trackList: Item[] = [];
 
-  constructor(private spotifyService: SpotifyService){}
+  constructor(private spotifyService: SpotifyService){
+  }
 
   ngOnInit():void{
     this.spotifyService.getNewReleases()

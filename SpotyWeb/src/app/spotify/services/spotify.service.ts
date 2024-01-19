@@ -13,7 +13,7 @@ import { AlbumTracks } from '../interfaces/albumTracks.interface';
 export class SpotifyService {
 
   private apiUrl = 'https://api.spotify.com/v1';
-  private accessToken = '';
+  public accessToken = '';
   public history: { name: string, tag: string }[] = [];
 
   constructor(private http: HttpClient) {
@@ -129,3 +129,4 @@ export class SpotifyService {
     this.history = JSON.parse(localStorage.getItem('Busquedas')!);
   };
 }
+
