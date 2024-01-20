@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, catchError, map, throwError } from 'rxjs';
 import { Item, Track, Tracks } from '../interfaces/track.interface';
 import { Album } from '../interfaces/album.interface';
 import { Item_Artist} from '../interfaces/artist.interface';
@@ -17,11 +17,11 @@ export class SpotifyService {
   public history: { name: string, tag: string }[] = [];
 
   constructor(private http: HttpClient) {
-    this.getToken().subscribe(
+    /*this.getToken().subscribe(
       response => {
         this.accessToken = response.body.access_token
       }
-    )
+    )*/
     this.loadLocalStorage();
   }
 
@@ -80,7 +80,7 @@ export class SpotifyService {
   }
 
   //Obtiene token de acceso
-  getToken(): Observable<any> {
+  /*getToken(): Observable<any> {
     const url = 'https://accounts.spotify.com/api/token';
 
     // Configurar las cabeceras
@@ -97,6 +97,28 @@ export class SpotifyService {
 
     // Realizar la solicitud POST
     return this.http.post(url, body.toString(), { headers, observe: 'response' });
+  }*/
+
+  async getToken(): Promise<void> {
+    try {
+      const url = 'https://accounts.spotify.com/api/token';
+
+      const headers = new HttpHeaders({
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'Cookie': '__Host-device_id=AQBb78B-wiPh_DLEQeJXF96zP92T7jIb7kT7gdp_1CiH2pn3rCMAQgcGUQ_Ic4dF_iNZYgWc7ByZdDIfmMJaeU5USwfuwI4K8Y8'
+      });
+
+      const body = new HttpParams()
+        .set('grant_type', 'client_credentials')
+        .set('client_id', 'fb5c812439244b80834f0917d67c876d')
+        .set('client_secret', '998569043f1841ac8dad5f700aaea587');
+
+      const response: any = await this.http.post(url, body.toString(), { headers }).toPromise();
+      this.accessToken = response.access_token;
+    } catch (error) {
+      console.error('Error al obtener el token:', error);
+      throw error;
+    }
   }
 
   //Actualiza el historial

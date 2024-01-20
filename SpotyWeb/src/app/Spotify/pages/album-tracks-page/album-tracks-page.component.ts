@@ -35,32 +35,17 @@ export class AlbumTracksPageComponent {
       )
       .subscribe(album => {
         this.artist_id = album.artists[0].id;
-        console.log('ID ARTISTA: ', this.artist_id);
         this.spotifyService.getArtistById(this.artist_id)
           .subscribe(artist =>{
             this.artist_img = artist.images[1].url;
             this.artist_name = artist.name;
             this.artist_spotify = artist.external_urls.spotify;
-            console.log('ARTISTA: ',this.artist_img, ' , ', this.artist_spotify);
           });
         this.album_tracks = album;
-        console.log('Revisar 1: ', this.album_tracks);
         for(const item of album.tracks.items){
           this.tracks_url.push(`https://open.spotify.com/embed/track/${item.id}?utm_source=generator`);
         }
       });
-    
-   /*
-    this.activatedRoute.params
-      .pipe(
-        switchMap(({id}) => this.spotifyService.getAlbumTrack(id))
-      )
-      .subscribe(track =>{
-        for(const item of track.items){
-          this.tracks.push(item);
-          this.tracks_url.push(`https://open.spotify.com/embed/track/${item.id}?utm_source=generator`);
-        }
-      })*/
   }
 
 
