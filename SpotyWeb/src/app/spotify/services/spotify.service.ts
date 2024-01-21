@@ -79,26 +79,6 @@ export class SpotifyService {
     return this.http.get<TopTracks>(url, { headers });
   }
 
-  //Obtiene token de acceso
-  /*getToken(): Observable<any> {
-    const url = 'https://accounts.spotify.com/api/token';
-
-    // Configurar las cabeceras
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/x-www-form-urlencoded',
-      'Cookie': '__Host-device_id=AQBb78B-wiPh_DLEQeJXF96zP92T7jIb7kT7gdp_1CiH2pn3rCMAQgcGUQ_Ic4dF_iNZYgWc7ByZdDIfmMJaeU5USwfuwI4K8Y8'
-    });
-
-    // Configurar los datos del formulario
-    const body = new HttpParams()
-      .set('grant_type', 'client_credentials')
-      .set('client_id', 'fb5c812439244b80834f0917d67c876d')
-      .set('client_secret', '998569043f1841ac8dad5f700aaea587');
-
-    // Realizar la solicitud POST
-    return this.http.post(url, body.toString(), { headers, observe: 'response' });
-  }*/
-
   async getToken(): Promise<void> {
     try {
       const url = 'https://accounts.spotify.com/api/token';

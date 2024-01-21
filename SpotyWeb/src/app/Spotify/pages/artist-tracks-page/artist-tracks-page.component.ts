@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { switchMap } from 'rxjs';
 import { SpotifyService } from '../../services/spotify.service';
 import { ActivatedRoute, RouterModule } from '@angular/router';
-import { Item } from '../../interfaces/track.interface';
 import { SongsTableComponent } from '../../components/songs-table/songs-table.component';
 import { Track } from '../../interfaces/top-track.interface';
 import { Location } from '@angular/common';
@@ -52,6 +51,7 @@ export class ArtistTracksPageComponent {
   }
 
   volver():void{
-    this.location.back();
+    this.location.back()
+    localStorage.setItem('Volver', JSON.stringify(true))
   }
 }

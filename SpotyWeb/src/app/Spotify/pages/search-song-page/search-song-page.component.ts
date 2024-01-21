@@ -16,6 +16,13 @@ export class SearchSongPageComponent {
   constructor(private spotifyService: SpotifyService,){
   }
 
+  ngOnInit():void{
+    if (localStorage.getItem('Busqueda') && localStorage.getItem('Volver')) {
+      this.searchSong(JSON.parse(localStorage.getItem('Busqueda')!))
+      localStorage.removeItem('Volver')
+    }
+  }
+
   ngDoCheck():void{
     if (localStorage.getItem('song')) {
       this.searchSong(JSON.parse(localStorage.getItem('song')!))

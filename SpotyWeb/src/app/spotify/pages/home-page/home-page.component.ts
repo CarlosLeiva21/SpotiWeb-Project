@@ -39,6 +39,10 @@ export class HomePageComponent {
       },
       error => this.handleApiError(error)
     );
+
+    if(localStorage.getItem('Volver')){
+      localStorage.removeItem('Volver')
+    }
 }
 
 private async handleApiError(error: any){
@@ -47,7 +51,6 @@ private async handleApiError(error: any){
     //console.error("Error 401: Unauthorized");
     try {
       await this.spotifyService.getToken();
-      console.log('Token:', this.spotifyService.accessToken);
       this.ngOnInit();
     } catch (error) {
       console.error('Error:', error);

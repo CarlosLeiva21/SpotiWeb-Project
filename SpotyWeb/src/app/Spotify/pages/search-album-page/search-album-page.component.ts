@@ -18,6 +18,13 @@ export class SearchAlbumPageComponent {
 
   constructor(private spotifyService: SpotifyService){}
 
+  ngOnInit():void{
+    if (localStorage.getItem('Busqueda') && localStorage.getItem('Volver')) {
+      this.searchByAlbum(JSON.parse(localStorage.getItem('Busqueda')!))
+      localStorage.removeItem('Volver')
+    }
+  }
+
   ngDoCheck():void{
     if (localStorage.getItem('album')) {
       this.searchByAlbum(JSON.parse(localStorage.getItem('album')!))

@@ -15,6 +15,7 @@ export class SearchBoxComponent {
   public onValue = new EventEmitter<string>()
 
   emitValue(value: string){
+    localStorage.setItem('Busqueda', JSON.stringify(value))
     this.onValue.emit(value);
   }
 

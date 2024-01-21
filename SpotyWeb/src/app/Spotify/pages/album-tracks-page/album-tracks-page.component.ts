@@ -2,10 +2,9 @@ import { Component } from '@angular/core';
 import { SearchBoxComponent } from '../../../shared/components/search-box/search-box.component';
 import { SongsTableComponent } from '../../components/songs-table/songs-table.component';
 import { SpotifyService } from '../../services/spotify.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { switchMap } from 'rxjs';
 import { AlbumTracks } from '../../interfaces/albumTracks.interface';
-import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-album-tracks-page',
@@ -14,7 +13,7 @@ import { Location } from '@angular/common';
   templateUrl: './album-tracks-page.component.html'
 })
 export class AlbumTracksPageComponent {
-  
+
   public album_tracks!: AlbumTracks;
   public artist_id: string = '';
   public artist_img : string = '';
@@ -25,7 +24,7 @@ export class AlbumTracksPageComponent {
   constructor(
     private spotifyService: SpotifyService,
     private activatedRoute: ActivatedRoute,
-    private location: Location) {}
+    private router: Router) {}
 
   ngOnInit(): void {
 
@@ -54,11 +53,11 @@ export class AlbumTracksPageComponent {
       .subscribe(artist =>{
         this.artist_img = artist.images[0].url;
         this.artist_spotify = artist.external_urls.spotify;
-        console.log('ERROR ???: ',this.artist_img, ' , ', this.artist_spotify);
       });
   }
 
   volver():void{
-    this.location.back();
+    this.router.navigate(['/search-artist'])
+    localStorage.setItem('Volver', JSON.stringify(true))
   }
 }

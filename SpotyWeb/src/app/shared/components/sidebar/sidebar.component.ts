@@ -28,5 +28,7 @@ export class SidebarComponent {
       this.router.navigateByUrl('search-artist')
     }
 
+    localStorage.setItem('Busqueda', JSON.stringify(tag))
+
   }
 }
